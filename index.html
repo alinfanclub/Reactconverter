@@ -8,75 +8,6 @@
         padding: 0;
         color: #6c6c6c;
     }
-    #container {
-        width: 50rem;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #container h1 {
-        color: white;
-        font-size: 4rem;
-        -webkit-text-stroke: 2px #000;
-        border-bottom: 3px #6c6c6c dotted;
-        padding-bottom: 1rem;
-    }
-    #container select {
-        margin: 3rem 0;
-        width: 20rem;
-        height: 5em;
-        outline: none;
-        text-align: center;
-    }
-    #container select:focus {
-        border: 3px dashed #9c9c9c;
-    }
-    #container .inputForm {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-    }
-    #container .inputForm > div:nth-child(1) {
-        width: 30rem;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-    #container .inputForm > div:nth-child(1) input {
-        border: 1px solid #9c9c9c;
-        outline: none;
-        text-align: center;
-        height: 2rem;
-        background-color: rgb(251, 253, 222);
-        border-radius: 3px;
-    }
-    #container .inputForm > div:nth-child(1) input:disabled {
-        background-color: antiquewhite;
-        border: 1px solid rgb(194, 153, 100)
-    }
-    #container .inputForm > div:nth-child(1) input:focus {
-        border:  2px dotted #9c9c9c;
-    }
-    #container .inputForm > div:nth-child(2) {
-        width: 11rem;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-    #container .inputForm > div:nth-child(2) button {
-        width: 5rem;
-        height: 2rem;
-        border: 1px solid #9c9c9c;
-        border-radius: 3px;
-    }
-    #container .inputForm > div:nth-child(2) button:hover {
-        background-color: rgb(251, 253, 222);
-    }
 </style>
 <head>
     <meta charset="UTF-8">
@@ -90,68 +21,9 @@
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-        const root = document.getElementById('root');
-        
-       function MinToHours() {
-           const [amount, setAmount] = React.useState(0);
-           const [invert, setInvert] = React.useState(false);
-           const onChage = (event) => {
-               setAmount(event.target.value);
-           }
-           const reSet = () => setAmount(0)
-           const onInvert = () => {
-            reSet();
-            setInvert((current) => !current)
-           };
+        function SaveBtn() {
             return (
-                <div class="inputForm">
-                    <div>
-                        <label htmlFor="minutes">Minutes</label>
-                    <input value={invert ? amount*60 : amount } id="minutes" placeholder="Min" type="number" onChange={onChage} disabled={invert} />
-
-                    <label htmlFor="hour">Hours</label>
-                    <input value={invert ? amount : amount/60} id="hour" placeholder="hour" type="number" onChange={onChage} disabled={!invert} />    
-                    </div>
-
-                    <div>
-                        <button onClick={reSet}>reset</button>
-                    <button onClick={onInvert}>{invert ? 'Turn Back' : 'invert'}</button>
-                        </div>
-                </div>
-            )
-        };
-
-        function KmToMiles() {
-            const [amount, setAmount] = React.useState(0);
-            const [invert, setInvert] = React.useState(false);
-            const reset = () => setAmount(0);
-            const onchange = (event) => {setAmount(event.target.value)};
-            const onInvert = () => {
-                setInvert((current) => !current)
-                reset();
-            };
-            return(
-                <div class="inputForm">
-                    <div>
-                        <label htmlFor="km">Km</label>
-                    <input value={invert ? amount*1.609344 : amount} id="km" placeholder="km" type="number"  onChange={onchange} disabled = {invert}/>
-                    <label htmlFor="miles">Miles</label>
-                    <input value={invert ? amount : amount*0.621271} id="miles" placeholder="miles" type="number" onChange = {onchange} disabled = {!invert}/>
-                        </div>
-                    <div>
-                        
-                    <button onClick={reset}>reset</button>
-                    <button onClick={onInvert}>invert</button>
-                        </div>
-                </div>
-            )
-        }
-
-        function Plz() {
-            return(
-                <div class="inputForm">
-                    <p>Select option you want</p>
-                </div>
+                <button onClick={this.props.onClick}>Save</button>
             )
         }
 
@@ -161,20 +33,13 @@
             const onSelet = (event) => setIndex(event.target.value);
             return (
                 <div id="container">
-                    <h1>Super Converter</h1>
-                    <select value={index} onChange={onSelet}>
-                        <option value="first">plz selet options</option>
-                        <option value="0">Minutes to Hours</option>
-                        <option value="1">Km to Miles</option>
-                    </select>
-                    {index === 'first' ? <Plz /> : null}
-                    {index === '0' ? <MinToHours /> : null}
-                    {index === '1' ? <KmToMiles /> : null}
+                    <SaveBtn />
                 </div>
             )
         };
 
-            ReactDOM.render(<App />, root);
+        const root = document.getElementById('root');
+        ReactDOM.render(<App />, root);
     </script>
 </body>
 </html>
