@@ -19,21 +19,29 @@
     <div id="root"></div>
     <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
-        function SaveBtn() {
-            return (
-                <button onClick={this.props.onClick}>Save</button>
-            )
+        function Btn({custombtn, changeValue, fontSize}) {
+            return <button style={{backgroundColor : 'tomato',color : "white",padding : '10px 20px',border: 'none',borderRadius : '20px', fontSize}} onClick={changeValue}  >{custombtn}
+            </button>
+        }
+        function ConfirmBtn() {
+            return <button>Save confirm</button>
         }
 
+        Btn.propTypes = {
+            changeValue: PropTypes.string,
+            fontSize: PropTypes.number,
+        };
         function App() {
-
-            const [index, setIndex] = React.useState('first');
+            const [value, setValue] = React.useState('Save Change');
+            const changeValue = () => setValue('Revert Change');
             const onSelet = (event) => setIndex(event.target.value);
             return (
                 <div id="container">
-                    <SaveBtn />
+                    <Btn custombtn={value} changeValue={changeValue}/>
+                    <Btn custombtn="confirm change" fontSize={'gggg'} />
                 </div>
             )
         };
